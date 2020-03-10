@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1583602684 source:d:\labs\firstlab\main.cpp
+	<iostream>
+	<vector>
+	<fstream>
+	<cstdlib>
+	<cstdint>
+	<string>
+

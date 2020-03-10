@@ -39,7 +39,75 @@ void read_from_txt(){
     readbin.read();
 }*/
 
-void BufferMenu(){
+void FindMonsterViaName(vector<Monster> MonsterVector){
+    string check;
+    cout << "Enter check: ";
+    cin >> check;
+    for(int i = 0; i < MonsterVector.size(); i++){
+        Monster tmp = MonsterVector[i];
+        if (check == tmp.name.substr(0, check.length())){
+             cout << "ID: " << tmp.ID << endl;
+             cout << "Name: " << tmp.name << endl;
+        }
+    }
+}
+
+void FindMonstersViaSpecAttackAndDamage(vector<Monster> MonsterVector){
+    int FindSpecAttack, MinimumDamage, MaximumDamage = 0;
+    cout << "What type of attack you want to find?\n"
+            "1)Double Damage\n"
+            "2)Paralyze enemy\n"
+            "3)Cure yourself\n"
+            "4)Double attack" << endl;
+    cin >> FindSpecAttack;
+    while(FindSpecAttack < 1 || FindSpecAttack > 4 || cin.fail()) {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Incorrect number, or it's not a number, try again: ";
+        cin >> FindSpecAttack;
+    }
+    cout << "Now enter the minimum damage: ";
+    cin >> MinimumDamage;
+    cout << "Now enter the maximum damage: ";
+    cin >> MaximumDamage;
+    cout << "====================" << endl;
+    for(int i = 0; i < MonsterVector.size(); i++){
+        Monster tmp = MonsterVector[i];
+        if(tmp.chanse_of_specattack == 1) {
+            if (FindSpecAttack == tmp.type_of_specattack && tmp.damage_point >= MinimumDamage && tmp.damage_point <= MaximumDamage){
+                cout << "ID: " << tmp.ID << endl;
+                cout << "Name: " << tmp.name << endl;
+            } else {
+                cout << "There are no monsters matching your criteria." << endl;
+            }
+        }
+    }
+    cout << "====================" << endl;
+}
+
+void FindMonstersViaTime(vector<Monster> MonsterVector){
+    int findyear, findmonth, findday, findhour = 0;
+    cout << "Enter the date" << endl;
+    cout << "Year(2010 to 2019): ";
+    cin >> findyear;
+    cout << "Month(1 to 12): ";
+    cin >> findmonth;
+    cout << "Day(1 to 31): ";
+    cin >> findday;
+    cout << "Hour(0 to 23): ";
+    cin >> findhour;
+    for(int i = 0; i < MonsterVector.size(); i++){
+        Monster tmp = MonsterVector[i];
+        if(findyear <= tmp.year && findmonth <= tmp.month && findday <= tmp.day && findhour < tmp.hour){
+            cout << "ID: " << tmp.ID << endl;
+            cout << "Name: " << tmp.name << endl;
+        } else {
+            cout << "There are no monsters matching your criteria." << endl;
+        }
+    }
+}
+
+void BufferMenu(vector<Monster> MonsterVector){
     int bufferint;
     cout << "What you want to do?:\n"
             "1)Find some monsters\n"
@@ -58,7 +126,30 @@ void BufferMenu(){
     } else if (bufferint == 2) {
         system("cls");
         read_from_txt();
-    }   /*else if(bufferint == 3){
+    } else if(bufferint == 1){
+        system("cls");
+        int tmp = 0;
+        cout << "How do you want to find monsters?\n"
+                "1)Monsters with a name beginning with a given snippet\n"
+                "2)monsters with a given special attack type and number of units attacks in a given range\n"
+                "3)the monsters that appeared in the game after the specified time." << endl;
+        cin >> tmp;
+        while(tmp < 1 || tmp > 3 || cin.fail()){
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Incorrect number, or it's not a number, try again: ";
+            cin >> tmp;
+        }
+        if(tmp == 1 ) {
+            FindMonsterViaName(MonsterVector);
+        } else if (tmp == 2){
+            FindMonstersViaSpecAttackAndDamage(MonsterVector);
+        } else if (tmp == 3) {
+            FindMonstersViaTime(MonsterVector);
+        }
+    }
+
+    /*else if(bufferint == 3){
         system("cls");
         read_from_bin();
     }*/
@@ -87,24 +178,20 @@ void save_to_txt(vector<Monster> MonsterVector){
             if(tmp.chanse_of_specattack == 1){
                 txtsave << "Type of specattack is: ";
                 if(tmp.type_of_specattack == 1)
-                    {txtsave << "DOUBLE DAMAGE" << endl;}
+                {txtsave << "DOUBLE DAMAGE" << endl;}
                 else if (tmp.type_of_specattack == 2)
-                    {txtsave << "PARALYZYS" << endl;}
+                {txtsave << "PARALYZYS" << endl;}
                 else if (tmp.type_of_specattack == 3)
-                    {txtsave << "CURING" << endl;}
+                {txtsave << "CURING" << endl;}
                 else
-                    {txtsave << "DOUBLE ATTACK" << endl;}
+                {txtsave << "DOUBLE ATTACK" << endl;}
             }
             txtsave << "Created at: " << tmp.day << "/" << tmp.month << "/" << tmp.year << " " << tmp.hour << ":00" << endl;
             txtsave << "===========================================" << endl;
         }
     }
     txtsave.close();
-    BufferMenu();
-}
-
-void find_monsters(){
-
+    BufferMenu(MonsterVector);
 }
 
 void save_to_bin(vector<Monster> MonsterVector){
@@ -130,7 +217,7 @@ void save_to_bin(vector<Monster> MonsterVector){
         savebin.write((char*)&tmp.day, sizeof(tmp.day));
     }
     savebin.close();
-    BufferMenu();
+    BufferMenu(MonsterVector);
 }
 
 void Menu (int& Mode, int& Storage) {
@@ -240,7 +327,7 @@ void Interactive(int Storage){
             cout << "Incorrect number, or it's not a number, try again: ";
             cin >> tmp.month;
         }
-         cout << "Please enter the day of creation(between 1 and 31): ";
+        cout << "Please enter the day of creation(between 1 and 31): ";
         cin >> tmp.day;
         while(tmp.day < 1 || tmp.day > 31 || cin.fail()){
             cin.clear();
@@ -286,24 +373,24 @@ void Interactive(int Storage){
             if(tmp.chanse_of_specattack == 1){
                 cout << "Type of specattack is: ";
                 if(tmp.type_of_specattack == 1)
-                    {cout << "DOUBLE DAMAGE" << endl;}
+                {cout << "DOUBLE DAMAGE" << endl;}
                 else if (tmp.type_of_specattack == 2)
-                    {cout << "PARALYZYS" << endl;}
+                {cout << "PARALYZYS" << endl;}
                 else if (tmp.type_of_specattack == 3)
-                    {cout << "CURING" << endl;}
+                {cout << "CURING" << endl;}
                 else
-                    {cout << "DOUBLE ATTACK" << endl;}
+                {cout << "DOUBLE ATTACK" << endl;}
             }
             cout << "Created at: " << tmp.day << "/" << tmp.month << "/" << tmp.year << " " << tmp.hour << ":00" << endl;
             cout << "===========================================" << endl;
         }
     }
-	if(Storage == 1)
-		return;
-	else if(Storage == 2)
-		save_to_txt(MonsterVector);
-	else
-		save_to_bin(MonsterVector);
+    if(Storage == 1)
+        return;
+    else if(Storage == 2)
+        save_to_txt(MonsterVector);
+    else
+        save_to_bin(MonsterVector);
 }
 
 
