@@ -51,18 +51,15 @@ public:
 	Date& operator[](int index); // Оператор обращения к элементу
 };
 
-
 List::List()
 {
 	Size = 0;
 	head = nullptr;
 }
 
-
 List::~List()
 {
 }
-
 
 void List::append(int day, int month, int year)
 {
@@ -79,7 +76,6 @@ void List::append(int day, int month, int year)
 		Size++;
 	}
 }
-
 
 Date List::get(int index)
 {
@@ -121,7 +117,6 @@ void List::set(int day, int month, int year, int index)
 		counter++;
 	}
 }
-
 
 void List::create_empty(int value)
 {
@@ -175,23 +170,31 @@ void List::length()
 {cout << "Elements in list: " << Size << endl;}
 
 
-void menu(int &choose) {
+void menu(int &choose, int &mode) {
 
-	cout << "What do yo want to do?(Choose from 1 to ):\n"
+	cout << "Choose mode:\n"
+		"1)Interactive\n"
+		"2)Demonstration\n"
+		"3)Benchmark\n" << endl;
+	cin >> mode;
+	system("cls");
+
+	if (mode == 1) {
+		cout << "What do yo want to do?(Choose from 1 to ):\n"
 			"1)Create empty list\n"
 			"2)Push some elements in list\n"
 			"3)Create list with random values\n"
 			"4)Exit" << endl;
-	cin >> choose;
-
-	while (choose < 1 || choose > 4) {
-		cout << "Incorrect input, try again: ";
 		cin >> choose;
-	}
 
+		while (choose < 1 || choose > 4) {
+			cout << "Incorrect input, try again: ";
+			cin >> choose;
+		}
+	}
 }
 
-void Choose(int choose) {
+void Interactive(int choose) {
 
 	List lst;
 	Date tmp;
@@ -337,13 +340,116 @@ void Choose(int choose) {
 			exit(1);
 		}
 
+}
+
+void Demonstration() {
+
+	List lst;
+	Date tmp;
+	cout << "So, I will show how this lab works..." << endl;
+	system("pause");
+	system("cls");
+
+
+	//create_empty(5);
+	cout << "Let's create an empty list with 5 elements\ncreate_empty(int value) works..." << endl << endl;
+	lst.create_empty(5);
+	cout << "And now let's cout this list" << endl;
+	lst.length();
+	cout << endl;
+	for (int i = 0; i < lst.GetSize(); i++) {
+		tmp = lst[i];
+		cout <<	"[" << i << "] " <<tmp.day << "/" << tmp.month << "/" << tmp.year << endl;
 	}
+	cout << endl;
+	system("pause");
+	system("cls");
+
+
+	//append(10, 12, 2020);
+	cout << "Now we append one elemetn day - 10, month 12, year - 2020\nappend(10, 12, 2020) works..." << endl;
+	lst.append(10, 12, 2020);
+	cout << endl;
+	cout << "And lets look at our changes" << endl << endl;
+	for (int i = 0; i < lst.GetSize(); i++) {
+		tmp = lst[i];
+		cout << "[" << i << "] " << tmp.day << "/" << tmp.month << "/" << tmp.year << endl;
+	}
+	cout << endl;
+	system("pause");
+	system("cls");
+
+
+	//insert(1, 1, 1000, 2);
+	cout << "Also we can insert an element by index(index = 2, and day = 1, month 1, year = 1000)\ninsert(1, 1, 1000, 2) works..." << endl;
+	lst.insert(1, 1, 1000, 2);
+	cout << endl;
+	cout << "And lets look at our changes" << endl << endl;
+	for (int i = 0; i < lst.GetSize(); i++) {
+		tmp = lst[i];
+		cout << "[" << i << "] " << tmp.day << "/" << tmp.month << "/" << tmp.year << endl;
+	}
+	cout << endl;
+	system("pause");
+	system("cls");
+
+
+	//remove(1);
+	cout << "Let's remove one element(by index = 1)\nremove(1) works..." << endl;
+	lst.remove(1);
+	cout << endl;
+	cout << "And lets look at our changes" << endl << endl;
+	for (int i = 0; i < lst.GetSize(); i++) {
+		tmp = lst[i];
+		cout << "[" << i << "] " << tmp.day << "/" << tmp.month << "/" << tmp.year << endl;
+	}
+	cout << endl;
+	system("pause");
+	system("cls");
+
+
+	//set(6, 6, 666, 4);
+	cout << "Also, this lab have a setter method, lets set a values by index(index = 4, day = 6, month = 6, year = 666)\nset(6, 6, 666, 4) works..." << endl;
+	lst.set(6, 6, 666, 4);
+	cout << endl;
+	cout << "And lets look at our changes" << endl << endl;
+	for (int i = 0; i < lst.GetSize(); i++) {
+		tmp = lst[i];
+		cout << "[" << i << "] " << tmp.day << "/" << tmp.month << "/" << tmp.year << endl;
+	}
+	cout << endl;
+	system("pause");
+	system("cls");
+
+
+	//get(5);
+	cout << "We can get one element from list by index(index = 5)\nget(5) works..." << endl << endl;
+	cout << "Our list:" << endl << endl;
+	for (int i = 0; i < lst.GetSize(); i++) {
+		tmp = lst[i];
+		cout << "[" << i << "] " << tmp.day << "/" << tmp.month << "/" << tmp.year << endl;
+	}
+	cout << endl;
+	cout << "Our element by index 5" << endl << endl;
+	tmp = lst.get(5);
+	cout << "[" << 5 << "] " << tmp.day << "/" << tmp.month << "/" << tmp.year << endl << endl << endl;
+
+	cout << "THANKS FOR ATTENTION :D" << endl << endl;
+
+}
 
 int main() {
 
-	int choose;
-	menu(choose);
-	Choose(choose);
-
+	int choose, mode;
+	menu(choose, mode);
+	if (mode == 1) {
+		Interactive(choose);
+	}
+	else if (mode == 2) {
+		Demonstration();
+	}
+	else {
+		//Benchmark();
+	}
 	return 0;
 }
