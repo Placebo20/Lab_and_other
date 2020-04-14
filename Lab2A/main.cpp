@@ -39,16 +39,16 @@ private:
 
 public:
 
-	void append(int day, int month, int year); // Добавляет элемент в конец списка
-	Date get(int index); // Геттер структуры == элемента класса
-	void set(int day, int month, int year, int index); // Сеттер структуры == элемента класса
-	void create_empty(int value); // Создаёт пустой список размером value
-	void insert(int day, int month, int year, int index); // Вставляет новый элемент по индексу index
-	void remove(int index); // Удаляет элемент по индексу index
-	void length(); // Выводит список
-	int GetSize() { return Size; } // Геттер размера списка
-	void push_front(int day, int month, int year); // Добавляет элемент в начало списка
-	Date& operator[](int index); // Оператор обращения к элементу
+	void append(int day, int month, int year); // push back element
+	Date get(int index); // get element
+	void set(int day, int month, int year, int index); // set values in element
+	void create_empty(int value); // to create empty list
+	void insert(int day, int month, int year, int index); // insert new element by index
+	void remove(int index); // remove element by index
+	void length(); // Shows length of list
+	int GetSize() { return Size; } // get size of list
+	void push_front(int day, int month, int year); // push front element
+	Date& operator[](int index); // operator []
 };
 
 List::List()
