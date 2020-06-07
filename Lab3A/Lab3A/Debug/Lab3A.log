@@ -1,0 +1,8 @@
+﻿  main.cpp
+C:\Users\dimag\Desktop\Программирование\Лаба 3а\Lab3A\Lab3A\Sorts.h(27,15): warning C4244: инициализация: преобразование "_Ty" в "int", возможна потеря данных
+          with
+          [
+              _Ty=double
+          ]
+C:\Users\dimag\Desktop\Программирование\Лаба 3а\Lab3A\Lab3A\Sorts.h(63,23): warning C4018: <: несоответствие типов со знаком и без знака
+  Lab3A.vcxproj -> C:\Users\dimag\Desktop\Программирование\Лаба 3а\Lab3A\Debug\Lab3A.exe
