@@ -1,0 +1,5 @@
+﻿  main.cpp
+C:\Users\dimag\Desktop\Программирование\Лаба 2b\list_multi\list_multi\main.cpp(4,12): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\dimag\Desktop\Программирование\Лаба 2b\list_multi\list_multi\list.h(91): warning C4715: List::get: значение возвращается не при всех путях выполнения
+C:\Users\dimag\Desktop\Программирование\Лаба 2b\list_multi\list_multi\list.h(104): warning C4715: List::operator[]: значение возвращается не при всех путях выполнения
+  list_multi.vcxproj -> C:\Users\dimag\Desktop\Программирование\Лаба 2b\list_multi\Debug\list_multi.exe
